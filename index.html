@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Watch</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: background-color 1s;
+        }
+
+        #watch {
+            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .part {
+            margin: 0 5px;
+            transition: color 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="watch">
+        <span id="hour" class="part"></span>:
+        <span id="minute" class="part"></span>:
+        <span id="second" class="part"></span>
+    </div>
+
+    <script>
+        function updateColors() {
+            const hourElement = document.getElementById('hour');
+            const minuteElement = document.getElementById('minute');
+            const secondElement = document.getElementById('second');
+
+            // Change color based on random values
+            const randomColor = () => Math.floor(Math.random() * 256);
+            const hourColor = `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
+            const minuteColor = `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
+            const secondColor = `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
+
+            hourElement.style.color = hourColor;
+            minuteElement.style.color = minuteColor;
+            secondElement.style.color = secondColor;
+        }
+
+        setInterval(updateColors, 5000); // Update colors every 5 seconds
+
+        function updateWatch() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourElement = document.getElementById('hour');
+            const minuteElement = document.getElementById('minute');
+            const secondElement = document.getElementById('second');
+
+            hourElement.textContent = formatTime(hours);
+            minuteElement.textContent = formatTime(minutes);
+            secondElement.textContent = formatTime(seconds);
+
+            document.body.style.backgroundColor = hours >= 16 || hours < 4 ? 'darkblue' : 'white';
+        }
+
+        function formatTime(value) {
+            return value < 10 ? `0${value}` : value;
+        }
+
+        setInterval(updateWatch, 1000);
+        updateColors(); // Initial color update
+        updateWatch(); // Initial time update
+    </script>
+</body>
+
+</html>
